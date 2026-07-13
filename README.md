@@ -1,29 +1,30 @@
 # Credit Card Customer Risk Analysis Using SQL
 
-## Project Overview
+![Project Overview](images/project_overview.png)
 
-This project demonstrates an end-to-end SQL workflow for customer credit risk analysis using relational databases. The project covers data cleaning, exploratory data analysis (EDA), feature engineering, customer-level dataset construction, and business analysis using SQL.
+## Overview
 
-The original dataset consists of applicant demographic information and monthly credit repayment records. Since no predefined target variable is provided, customer risk labels were engineered from historical repayment behavior, enabling customer-level risk analysis.
+This project demonstrates an end-to-end SQL workflow for analyzing customer credit risk using relational databases. It covers data cleaning, exploratory data analysis (EDA), feature engineering, customer-level dataset construction, and business analysis to identify repayment risk patterns.
+
+The original dataset contains applicant demographic information and monthly credit repayment records. Since the dataset does not provide predefined customer labels, customer risk labels were engineered from historical repayment behavior to enable customer-level risk analysis. :contentReference[oaicite:0]{index=0}
 
 ---
 
 ## Business Problem
 
-Financial institutions evaluate customer creditworthiness before issuing credit products. Historical repayment behavior, combined with demographic and financial information, provides valuable insights into customer risk.
+Financial institutions rely on historical customer information and repayment behavior to evaluate creditworthiness before issuing credit products.
 
-The objective of this project is to transform raw transactional credit history into an analytical customer dataset and identify customer segments associated with higher repayment risk using SQL.
+This project transforms raw applicant and repayment records into an analytical customer-level dataset and identifies demographic, financial, and behavioral characteristics associated with higher credit risk using SQL.
 
 ---
 
 ## Project Objectives
 
-- Clean and validate raw customer data.
-- Explore applicant demographics and financial characteristics.
-- Analyze historical credit repayment behavior.
-- Engineer customer-level behavioral features.
-- Construct customer risk labels from repayment history.
-- Identify business patterns associated with higher customer risk.
+- Clean and validate raw customer datasets.
+- Perform exploratory data analysis on applicant demographics and repayment history.
+- Engineer customer-level behavioral features from monthly repayment records.
+- Construct customer risk labels based on repayment history.
+- Analyze customer segments associated with higher repayment risk.
 
 ---
 
@@ -31,32 +32,31 @@ The objective of this project is to transform raw transactional credit history i
 
 **Dataset:** Credit Card Approval Prediction
 
-**Source:** Kaggle
+**Source:** :contentReference[oaicite:1]{index=1}
 
-The project uses two relational tables linked through the **ID** column.
+The dataset consists of two relational tables linked by the **ID** column.
 
-### application_record
+### application_record.csv
 
-Contains applicant information including:
+Contains applicant demographic and financial information, including:
 
 - Gender
 - Age
 - Annual Income
+- Income Type
+- Education
 - Occupation
 - Employment Duration
-- Education Level
 - Marital Status
 - Housing Type
 - Number of Children
-- Family Members
+- Family Size
 - Car Ownership
 - Property Ownership
 
-### credit_record
+### credit_record.csv
 
-Contains monthly customer credit repayment history.
-
-Repayment status values:
+Contains monthly customer repayment history.
 
 | Status | Description |
 |---------|-------------|
@@ -84,11 +84,13 @@ Repayment status values:
 
 ```
 Credit-Card-Customer-Risk-Analysis-Using-SQL
-
 │
 ├── data
 │   ├── application_record.csv
 │   └── credit_record.csv
+│
+├── images
+│   └── project_overview.png
 │
 ├── sql
 │   ├── 01_Data_Cleaning.sql
@@ -106,72 +108,70 @@ Credit-Card-Customer-Risk-Analysis-Using-SQL
 
 ```
 Raw Data
-     │
-     ▼
+    │
+    ▼
 Data Cleaning
-     │
-     ▼
+    │
+    ▼
 Exploratory Data Analysis
-     │
-     ▼
+    │
+    ▼
 Feature Engineering
-     │
-     ▼
-Customer-Level Dataset Construction
-     │
-     ▼
+    │
+    ▼
+Customer-Level Dataset
+    │
+    ▼
 Business Analysis
 ```
 
 ---
 
-## Phase 1 – Data Cleaning
+## Phase 1 — Data Cleaning
 
-The data cleaning process ensured consistency and reliability before analysis.
+Data quality checks were performed to ensure consistency before analysis.
 
-Activities performed:
+Activities included:
 
-- Duplicate record validation
-- NULL value inspection
-- Missing value identification
-- Placeholder value detection
+- Duplicate validation
+- Missing value inspection
+- Invalid value detection
 - Occupation standardization
 - Employment data validation
-- Data quality verification
+- General data quality verification
 
 ---
 
-## Phase 2 – Exploratory Data Analysis
+## Phase 2 — Exploratory Data Analysis
 
-Exploratory analysis was performed on both applicant information and credit history.
+Exploratory analysis was performed on both applicant demographics and repayment history.
 
 ### Applicant Analysis
 
-- Dataset overview
-- Gender distribution
-- Age distribution
-- Education level
-- Marital status
-- Housing type
-- Income distribution
-- Income type
-- Occupation distribution
-- Employment duration
-- Number of children
-- Family size
-- Car ownership
-- Property ownership
+- Gender Distribution
+- Age Distribution
+- Annual Income Distribution
+- Income Type
+- Education Level
+- Marital Status
+- Housing Type
+- Occupation Distribution
+- Employment Duration
+- Number of Children
+- Family Size
+- Car Ownership
+- Property Ownership
 
 ### Credit History Analysis
 
-- Credit status distribution
-- Customer repayment history
-- Credit history length
-- Monthly repayment behaviour
+- Credit Status Distribution
+- Customer Repayment Status
+- Credit History Length
+- Monthly Repayment Behaviour
 
 ---
 
-## Phase 3 – Feature Engineering
+## Phase 3 — Feature Engineering
 
 Monthly repayment records were aggregated into customer-level behavioral features.
 
@@ -179,7 +179,7 @@ Engineered features include:
 
 - Months Observed
 - Worst Repayment Status
-- Paid On Time Months
+- Paid-On-Time Months
 - 30-Day Late Months
 - 60-Day Late Months
 - 90-Day Late Months
@@ -190,15 +190,15 @@ Engineered features include:
 - Total Late Months
 - Customer Risk Label
 
-The engineered dataset contains one analytical record for each customer.
+The resulting dataset contains one analytical record per customer.
 
 ---
 
-## Phase 4 – Business Analysis
+## Phase 4 — Business Analysis
 
-Customer characteristics were analyzed against the engineered risk labels to identify high-risk customer segments.
+Customer characteristics were analyzed against engineered risk labels to identify higher-risk customer segments.
 
-Business analyses performed:
+Business analyses include:
 
 - Gender vs Customer Risk
 - Age Group vs Customer Risk
@@ -218,30 +218,27 @@ Business analyses performed:
 
 ## Key Findings
 
-- Most customers belong to the Working income category.
-- Nearly half of the applicants fall within the 100K–200K annual income range.
+- Most applicants belong to the **Working** income category.
+- Nearly half of the customers fall within the **100K–200K annual income** range.
 - House/Apartment is the dominant housing type.
-- Younger customers show relatively higher bad rates than older customers.
-- Property owners generally exhibit lower bad rates than non-property owners.
-- Customer-level aggregation provides more meaningful insights than monthly repayment records.
+- Younger customers exhibit slightly higher bad rates than older customers.
+- Property owners generally show lower bad rates than non-property owners.
+- Customer-level aggregation provides more meaningful business insights than analyzing monthly repayment records independently.
 
 ---
 
 ## SQL Concepts Demonstrated
 
 - Data Cleaning
-- Exploratory Data Analysis
+- Exploratory Data Analysis (EDA)
 - Feature Engineering
 - Business Analysis
-- Common Table Expressions (CTEs)
-- Window Functions
 - CASE Expressions
 - Aggregate Functions
-- Conditional Aggregation
 - INNER JOIN
 - GROUP BY
 - Subqueries
-- CREATE TABLE AS SELECT (CTAS)
+- CREATE TABLE
 - ALTER TABLE
 - UPDATE
 - COALESCE()
@@ -250,7 +247,7 @@ Business analyses performed:
 
 ## How to Run
 
-1. Import both CSV files into MySQL.
+1. Import both CSV datasets into MySQL.
 2. Execute the SQL scripts in the following order:
 
 ```
@@ -271,19 +268,8 @@ Business analyses performed:
 
 ---
 
-## Future Enhancements
-
-Potential extensions of this project include:
-
-- Predictive credit risk modeling using machine learning.
-- Customer credit scoring.
-- Interactive business dashboards.
-- Automated SQL reporting workflows.
-
----
-
 ## Author
 
 **Shubham Tiwari**
 
-GitHub: **github.com/shubhamtiwari4096**
+GitHub: https://github.com/shubhamtiwari4096
