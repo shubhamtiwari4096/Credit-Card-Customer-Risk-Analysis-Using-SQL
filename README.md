@@ -32,9 +32,9 @@ This project transforms raw applicant and repayment records into an analytical c
 
 **Dataset:** Credit Card Approval Prediction
 
-**Source:** :contentReference[oaicite:1]{index=1}
+**Source:** https://www.kaggle.com/datasets/rikdifos/credit-card-approval-prediction
 
-The dataset consists of two relational tables linked by the **ID** column.
+The project uses the **Credit Card Approval Prediction** dataset available on Kaggle. It contains two relational tables linked through the **ID** column and is designed for credit risk analysis and machine learning applications. Since the dataset does not provide predefined customer labels, this project constructs customer-level risk labels from historical repayment behavior. :contentReference[oaicite:0]{index=0}
 
 ### application_record.csv
 
@@ -44,7 +44,7 @@ Contains applicant demographic and financial information, including:
 - Age
 - Annual Income
 - Income Type
-- Education
+- Education Level
 - Occupation
 - Employment Duration
 - Marital Status
@@ -56,7 +56,7 @@ Contains applicant demographic and financial information, including:
 
 ### credit_record.csv
 
-Contains monthly customer repayment history.
+Contains monthly customer credit repayment history.
 
 | Status | Description |
 |---------|-------------|
